@@ -45,7 +45,7 @@ the GetData() method will fill the User struct which looks like this:
 type User struct{
 	c *colly.Collector
   
-  Account struct{
+  	Account struct{
 		NIM string
 		Nama string
 		Jenjang string
