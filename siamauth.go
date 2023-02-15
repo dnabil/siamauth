@@ -38,7 +38,9 @@ type User struct {
 
 // constructor
 func NewUser() User {
-	return User{c: colly.NewCollector(), LoginStatus: false}
+	return User{c: colly.NewCollector(
+		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"),
+	), LoginStatus: false}
 }
 
 func (s *User) Login(us string, ps string) error {
