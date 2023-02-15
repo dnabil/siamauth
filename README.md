@@ -37,6 +37,8 @@ func main(){
 
 	fmt.Println(user.Account.Nama)
 	fmt.Println(user.Account.NIM)
+
+	user.Logout()
 }
 ```
 
