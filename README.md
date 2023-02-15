@@ -3,7 +3,7 @@
 https://siam.ub.ac.id authentication with scraping method
 
 import:
-```
+```go
 import (
 	"github.com/dnabil/siamauth"
 )
@@ -15,7 +15,7 @@ go get github.com/dnabil/siamauth
 
 ## Usage
 siamauth constructor
-```
+```go
 user := siamauth.NewUser()
 ```
 
@@ -23,9 +23,9 @@ Currently there's 2 methods which is Login(uname string, pass string) and GetDat
 -to use GetData(), must be logged in first otherwise will return an error.
 
 ex:
-```
+```go
 func main(){
-	user := siamauth.NewUser() 
+	user := siamauth.NewUser()
 	err := user.Login("NIM", "PASSWORD")
 	if err != nil {
 		panic(err)
@@ -41,10 +41,10 @@ func main(){
 ```
 
 the GetData() method will fill the User struct which looks like this:
-```
+```go
 type User struct{
 	c *colly.Collector
-  
+
   	Account struct{
 		NIM string
 		Nama string
@@ -55,7 +55,7 @@ type User struct{
 		Seleksi string
 		NomorUjian string
 	}
-  
+
 	LoginStatus bool
 }
 ```
