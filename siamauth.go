@@ -14,8 +14,6 @@ var (
 	siamUrl   string = "https://siam.ub.ac.id/"            //GET
 	logoutUrl string = "https://siam.ub.ac.id/logout.php/" //GET
 
-	Version string = "0.1.0"
-
 	ErrorNotLoggedIn error = errors.New("please login first")
 	ErrorLoggedIn    error = errors.New("already logged in")
 )
