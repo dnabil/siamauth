@@ -73,5 +73,32 @@ You can also check if the user logged in or not with LoginStatus.
 
 That's pretty much it
 
+# UPDATE!
+
+You can use AutoScrap method for scrap siam because this way is efficient
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/dnabil/siamauth"
+	"github.com/joho/godotenv"
+)
+
+func main() {
+	err := godotenv.Load()
+	if err != nil {
+		panic(err.Error())
+	}
+	account, err := siamauth.NewUser().AutoScrap(os.Getenv("USERNAME"), os.Getenv("PASSWORD"))
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Println(account)
+}
+```
 \*I am planning on adding more features like getting schedules, study plan (aka KRS), etc.. but still lazy.
 Pull requests are welcome :)

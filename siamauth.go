@@ -18,8 +18,12 @@ var (
 	ErrorLoggedIn    error = errors.New("already logged in")
 )
 
-type User struct {
-	c       *colly.Collector
+type (
+	User struct {
+		c           *colly.Collector
+		Account     Account
+		LoginStatus bool
+	}
 	Account struct {
 		NIM          string
 		Nama         string
@@ -31,14 +35,32 @@ type User struct {
 		NomorUjian   string
 		FotoProfil   string
 	}
-	LoginStatus bool
-}
+)
 
 // constructor
-func NewUser() User {
-	return User{c: colly.NewCollector(
+func NewUser() *User {
+	return &User{c: colly.NewCollector(
 		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"),
 	), LoginStatus: false}
+}
+
+func (s *User) AutoScrap(username, password string) (Account, error) {
+	err := s.Login(username, password)
+	if err != nil {
+		return Account{}, err
+	}
+
+	err = s.GetData()
+	if err != nil {
+		return Account{}, err
+	}
+
+	err = s.Logout()
+	if err != nil {
+		return Account{}, err
+	}
+
+	return s.Account, nil
 }
 
 func (s *User) Login(us string, ps string) error {
