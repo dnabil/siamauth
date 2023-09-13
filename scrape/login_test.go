@@ -11,6 +11,7 @@ import (
 func TestScrapeLoginError(t *testing.T) {
 	file, err := os.Open("pages/index_login fail.html")
 	require.NoError(t, err)
+	defer file.Close()
 
 	loginErrMsg, err := ScrapeLoginError(file)
 	assert.NotZero(t, loginErrMsg)
