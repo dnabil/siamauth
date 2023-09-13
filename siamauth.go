@@ -13,9 +13,9 @@ var (
 	loginPath		string = "index.php"
 	logoutPath		string = "logout.php"
 
-	siamUrl			string = "https://siam.ub.ac.id/"		//GET
-	loginUrl		string = siamUrl + loginPath  			//POST
-	logoutUrl		string = siamUrl + logoutPath			//GET
+	siamUrl			string = "https://siam.ub.ac.id/"			//GET
+	loginUrl		string = siamUrl + loginPath				//POST
+	logoutUrl		string = siamUrl + logoutPath				//GET
 )
 
 type (
@@ -88,12 +88,16 @@ func (s *User) Login(us string, ps string) (string, error) {
 		}
 	}
 
+	if errOnResponse != nil {
+		return "", errOnResponse
+	}
+
 	// login fail
 	if loginErrMsg != "" {
 		return loginErrMsg, siamerr.ErrLoginFail
 	}
 
-	return loginErrMsg, errOnResponse
+	return "", nil
 }
 
 // GetData will fill in user's Data or return an error

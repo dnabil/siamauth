@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	account, err := siamauth.NewUser().GetDataAndLogout(os.Getenv("USERNAME"), os.Getenv("PASSWORD"))
+	account, err := siamauth.NewUser().GetDataAndLogout(os.Getenv("NIM"), os.Getenv("PASSWORD"))
 	if err != nil {
 		panic(err.Error())
 	}
