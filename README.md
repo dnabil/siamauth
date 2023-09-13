@@ -27,6 +27,7 @@ New:
 
 - feat: GetDataAndLogout, basically: Login() GetData() and Logout()
 - refactor: move scraping logic to a new pkg (/scrape)
+- feat: Scrape addcourse.php logic :D
 
 ## Usage
 
@@ -40,7 +41,7 @@ After that you can use the methods available for that user :). <a href="https://
 
 Please note that after logging in, please defer user.Logout() so the session id won't be misused.
 
-Or if you just need the scraping logic for scraping siam pages, import the <a href="" target="_blank">siamauth/scrape</a> pkg
+Or if you just need the scraping logic for scraping siam pages, import the <a href="/dnabil/siamauth/tree/main/scrape" target="_blank">siamauth/scrape</a> pkg
 
 \*I am planning on adding more features like getting schedules, study plan (aka KRS), etc.. but still lazy.
 Pull requests are welcome :)
