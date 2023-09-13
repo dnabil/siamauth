@@ -18,7 +18,7 @@ go get github.com/dnabil/siamauth
 
 ## What's New
 
-Breaking Changes (v.0.2.0):
+Breaking Changes (v0.2.0):
 
 - Error variables moved to /siamauth/siamerr
 - Login function now returns 2 data, error msg (string) and error
