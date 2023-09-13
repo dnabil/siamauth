@@ -49,6 +49,6 @@ func TestLogin(t *testing.T) {
 		errLoginMsg, err := user.Login("212121211000423", "212121211000423")
 		assert.Equal(t, siamerr.ErrLoginFail, err)
 		assert.NotZero(t, errLoginMsg)
-		assert.Zero(t, errLoginMsg)
+		// assert.Zero(t, errLoginMsg)
 	})
 }
