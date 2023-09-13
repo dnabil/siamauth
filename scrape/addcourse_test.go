@@ -27,6 +27,7 @@ func TestScrapeAddCourse(t *testing.T) {
 	}
 	assert.True(t, hariValid, "Hari should be valid")
 
+	assert.Equal(t, "GANJIL 2023/2024", c.MasaKRS)
 	assert.NotZero(t, c.Jam)
 	assert.NotZero(t, c.Kelas)
 	assert.NotZero(t, c.ProgramStudi)

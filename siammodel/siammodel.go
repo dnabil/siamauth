@@ -13,7 +13,9 @@ type (
 		FotoProfil   string
 	}
 
-	AddCourseStruct struct {
+	AddCourse struct {
+		MasaKRS string
+
 		Hari           string // Nama hari
 		Jam            string // HH:MM - HH:MM
 		Kelas          string
