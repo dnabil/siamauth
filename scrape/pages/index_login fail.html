@@ -1,0 +1,236 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SIAM UB</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	
+	<link rel="stylesheet" type="text/css" href="https://siamstatic.ub.ac.id/css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="https://siamstatic.ub.ac.id/css/login.css"/>
+	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+
+	
+	<script type="text/JavaScript">
+//alert("Pengumuman :Untuk sementara SIAM akan mengalami gangguan mulai 16-01-2013 pukul 19.00-20.30 WIB.Mohon maaf atas ketidaknyamanan yang terjadi ");
+	$(document).ready(function() {
+		//$('.modal').modal('show');
+		var today = new Date().toISOString().slice(0, 10);
+		var deadline = new Date("2022-10-01").toISOString().slice(0, 10);
+		if(today <= deadline ){
+			$(".modal").modal("show");
+		}else{
+			$(".modal").modal("hide");
+		}
+		geoFindMe();
+	});
+	function timedRefresh(timeoutPeriod) 
+	{
+		setTimeout("location.reload(true);",timeoutPeriod);
+	}
+	//document.onload(timedRefresh(15000));
+	function geoFindMe() {
+		  const status = document.querySelector('#status_loc');
+		  const loclat = document.querySelector('#lat');
+		  const loclong = document.querySelector('#long');
+		  
+		  loclat.value = '';
+		  loclong.value = '';
+
+		  function success(position) {
+			const latitude  = position.coords.latitude;
+			const longitude = position.coords.longitude;
+
+			status.value = 'success';
+			loclat.value = latitude;
+			loclong.value = longitude;
+		  }
+
+		  function error() {
+			status.value = 'Unable to retrieve your location';
+		  }
+
+		  if (!navigator.geolocation) {
+			status.value = 'Geolocation is not supported by your browser';
+		  } else {
+			status.value = 'Locating...';
+			navigator.geolocation.getCurrentPosition(success, error);
+		  }
+
+		}
+	</script>
+</head>
+<body class="body-selma login-selma" style="background: none;">
+<div class="wrapper clear">
+	<div class="frame-login" style="padding: 15px;">
+    	<div class="header-login row clear">
+        	<div class="frame-title logo w-40 left">
+            	<div class="inner">
+            		<h1>
+                    	<span>SIAM LOGIN</span>
+                        <img src="https://siamstatic.ub.ac.id/images/logo-siam.png" width="100%" />
+                    </h1>
+                </div>
+            </div>
+            <div class="w-60 right">
+            	<div class="inner clear">
+                    <form action="index.php" method="post" class="form-login right">
+						<input id="status_loc" name="status_loc" type="hidden" value="">
+                    	<input id="lat" name="lat" type="hidden" value="">
+						<input id="long" name="long" type="hidden" value="">
+						<input autocomplete="off" name="username" type="text" size="16" placeholder="nim" class="text" value="">
+                        <input name="password" type="password" class="text" size="16" placeholder="kata sandi" >
+                        <input name="login" type="submit" value="Masuk" class="button" placeholder="masuk"> 
+                    	<div style="text-align:right; margin:8px 0 0">
+                        	<small class="error-code">
+							Silahkan memasukkan ulang password Anda! <br>Perhatikan penulisan huruf kapital atau non-kapital pada password! <br>(contoh: "password" tidak sama degan "PASSWORD")<br>                            </small>
+                            
+                        	<a class="btn btn-warning border-0 rounded-0" target="_blank" href="http://bais.ub.ac.id/session/forget/"><i class="fa fa-lock"></i> Lupa Kata Sandi?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row row-hr">
+            <div class="inner">
+                <hr />
+            </div>
+        </div>
+        
+        
+    	<div class="content-login row clear col-lg-12" style="margin:0;">
+        	<div class="left box-warning col-lg-8">
+			<style>
+						.inner-warning{
+							opacity: 1;
+						}
+						.box-warning:nth-child(n+2) .inner-warning {
+							margin: 0 0 10px;
+						}
+						.inner-warning {
+							margin: 0;
+						}
+						@media only screen and (max-width: 767px){
+							.form-login input[type="text"],.form-login input[type="password"] {
+								width:100%;
+							}
+						}
+						.modal{
+							top: 10%; 
+						}
+					</style>
+				<a href="https://bantuankeuangan.ub.ac.id/" target="_blank" style="background:#ed8b00;font-size:16px;line-height:20px;margin-bottom:20px;color:#003153;text-align:center;padding:10px;">
+					<i class="fa fa-clipboard"></i> <strong>Formulir Layanan Bantuan Keuangan Mahasiswa</strong>
+				</a>
+				<!--<div class="inner inner-warning" style="background:#636363;font-size:16px;line-height:20px;margin-bottom:20px">
+					Bagi mahasiswa baru jalur SNMPTN tahun 2021, untuk mengaktifkan akun SIAM silakan menggunakan fitur Lupa Kata Sandi dengan NIM sebagai UserID dan email yg digunakan pada aplikasi Admisi sebagai email alternatif, serta untuk <i>Hint Answer</i> isikan dengan Nomor Ujian SNMPTN
+				</div>-->
+            	<div class="inner-warning inner" style="background: #e82937">
+										<!--strong>&nbsp;Proses KRS dapat dilakukan mulai hari Rabu, 17 Januari 2018</strong-->
+					
+				
+					<!--<a href="https://docs.google.com/forms/d/e/1FAIpQLSfxpACze2B-V2f9yKGs8NtOJ1nvt1EgMLQrDj8JjHUwv-SLEA/viewform">
+						<img src="images/covid.jpg" width="100%"/>
+					</a><br>-->
+					<a href="https://bits.ub.ac.id/">
+						<img src="images/banner-gapura.jpg" width="100%"/>
+					</a>
+                </div>
+            </div>
+        	<div class="col-lg-4 box-warning">
+				<a class="inner-warning inner info-pin" style="font-size:125%" href="https://admisi.ub.ac.id">
+					<center><i class="fa fa-lock"></i> <strong>Admisi UB</strong></center>
+				</a>
+				<!--<a class="inner-warning inner info-pin" style="font-size:125%; background:orange;" href="https://siam.ub.ac.id/getpin.php">
+					<center><i class="fa fa-info-circle"></i> <strong>Info PIN</strong></center>
+				</a>-->
+				<div class="col-lg-12 box-warning" style="background: #e2e0d5;padding: 14px;width: auto; display:none">
+					<h3><a href="#"><i class="fa fa-info"></i> Info Penting <i class="fa fa-long-arrow-right"></i></a></h3><br>
+					<h3><a href="#"><i class="fa fa-newspaper-o"></i> Berita <i class="fa fa-long-arrow-right"></i></a></h3><br>
+					<h3><a target="_blank" href="https://selma.ub.ac.id/tata-cara-pembayaran/"><i class="fa fa-book"></i> Panduan <i class="fa fa-long-arrow-right"></i></a></h3>
+					<a style="color: red" target="_blank" href="https://selma.ub.ac.id/tata-cara-pembayaran/">Klik di sini untuk melihat daftar panduan</a>
+				</div>
+            </div>
+			 
+			<!--
+        	<div class="w-20 left box-warning">
+            	<div class="inner highlight-list" style="margin: 0 12px">
+                	<h3><a href="#"><i class="fa fa-info"></i> Info Penting <i class="fa fa-long-arrow-right"></i></a></h3>
+                	<ul>
+						                    </ul>
+                </div>
+            </div>
+            
+        	<div class="announcement-list other-list w-40 left">
+            	<div class="inner" style="padding: 0!important">
+                	<h3><a href="#"><i class="fa fa-newspaper-o"></i> Berita <i class="fa fa-long-arrow-right"></i></a></h3>
+                    <ul>
+						                    </ul>
+                </div>
+            </div>
+        	<div class="announcement-list w-20 left">
+            
+            	<div class="inner" style="padding: 0!important">
+                	<h3><a target="_blank" href="https://selma.ub.ac.id/tata-cara-pembayaran/"><i class="fa fa-book"></i> Panduan <i class="fa fa-long-arrow-right"></i></a></h3>
+                	<ul>
+                        <li><a target="_blank" href="http://selma.ub.ac.id/panduan-mahasiswa/">Klik di sini untuk melihat daftar panduan</a></li>
+                        <li><a target="_blank" href="https://selma.ub.ac.id/tata-cara-pembayaran/">Klik di sini untuk melihat daftar panduan</a></li>
+                    </ul>
+                </div>
+            </div>-->
+        </div>
+        
+        
+        <div class="row row-hr">
+            <div class="inner">
+                <hr />
+            </div>
+        </div>
+        
+        
+    	<div class="footer-login row clear">
+            <div class="footer-copyright col-lg-12">
+            	<div class="inner clear">
+                	 &copy;2004-2023 SIAM UB by <strong><a class="text-primary" target="_blank" href="http://tik.ub.ac.id">TIK UB</a></strong>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title"><b style="color:red">Pengumuman !</b></h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<center style="font-weight: bold">
+			Yth. Sivitas Akademika UB
+			<br><br>
+			Sehubungan dengan maraknya informasi pembobolan akun yang menyebabkan data pribadi terpublikasi, bersama ini dihimbau kepada seluruh sivitas akademika Universitas Brawijaya untuk berhati-hati jika terdapat informasi, tawaran, ataupun tautan di luar informasi resmi baik melalui telepon/sms/whatsapp/email atau media lain yang menawarkan/menginformasikan apapun.
+			<br><br>
+			Selalu pastikan kebenaran informasi yang diperoleh kepada saluran informasi resmi lembaga yang terkait.
+			<br><br>
+			Demikian informasi ini, atas perhatian dan kewaspadaannya kami sampaikan terima kasih.
+			<br><br>
+			Universitas Brawijaya
+		  </p>
+		</div>
+		<div class="modal-footer">
+		  <a style="color:white" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</a>
+		</div>
+	  </div>
+	</div>
+</div>
+</body>
+</html>

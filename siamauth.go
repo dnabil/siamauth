@@ -1,37 +1,28 @@
 package siamauth
 
 import (
-	"errors"
-	"fmt"
-	"strings"
+	"bytes"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/dnabil/siamauth/scrape"
 	"github.com/dnabil/siamauth/siamerr"
+	models "github.com/dnabil/siamauth/siammodel"
 	"github.com/gocolly/colly"
 )
 
 var (
-	loginUrl  string = "https://siam.ub.ac.id/index.php/"  //POST
-	siamUrl   string = "https://siam.ub.ac.id/"            //GET
-	logoutUrl string = "https://siam.ub.ac.id/logout.php/" //GET
+	loginPath		string = "index.php"
+	logoutPath		string = "logout.php"
+
+	siamUrl			string = "https://siam.ub.ac.id/"		//GET
+	loginUrl		string = siamUrl + loginPath  			//POST
+	logoutUrl		string = siamUrl + logoutPath			//GET
 )
 
 type (
 	User struct {
 		c           *colly.Collector
-		Account     Account
+		Data     	models.UserData
 		LoginStatus bool
-	}
-	Account struct {
-		NIM          string
-		Nama         string
-		Jenjang      string
-		Fakultas     string
-		Jurusan      string
-		ProgramStudi string
-		Seleksi      string
-		NomorUjian   string
-		FotoProfil   string
 	}
 )
 
@@ -42,101 +33,90 @@ func NewUser() *User {
 	), LoginStatus: false}
 }
 
-func (s *User) AutoScrap(username, password string) (Account, error) {
-	err := s.Login(username, password)
+
+// no need to login first & defer logout.
+//
+// if you just need to get the data and bounce, use this ;)
+func (s *User) GetDataAndLogout(username, password string) (models.UserData, error) {
+	errMsg, err := s.Login(username, password)
 	if err != nil {
-		return Account{}, err
+		return models.UserData{}, err
 	}
+	if errMsg != "" {
+		return models.UserData{}, siamerr.ErrLoginFail
+	}
+	defer s.Logout()
 
 	err = s.GetData()
 	if err != nil {
-		return Account{}, err
+		return models.UserData{}, err
 	}
 
-	err = s.Logout()
-	if err != nil {
-		return Account{}, err
-	}
-
-	return s.Account, nil
+	return s.Data, nil
 }
 
-func (s *User) Login(us string, ps string) error {
+
+// Please defer Logout() after this function is called
+//
+// will return a login error message (from siam) and an error (already logged in/login error/siam ui changes/server down/etc)
+func (s *User) Login(us string, ps string) (string, error) {
 	if s.LoginStatus {
-		return siamerr.ErrorLoggedIn
+		return "", siamerr.ErrLoggedIn
 	}
 
-	var errLogin error
-	var doc *goquery.Document
+	var errOnResponse error
+	var loginErrMsg string
 
 	s.c.OnResponse(func(r *colly.Response) {
-		doc, errLogin = goquery.NewDocumentFromReader(strings.NewReader(string(r.Body)))
-		if errLogin != nil {
-			errLogin = errors.New("couldn't read response body")
-			return
-		}
-		temp := errors.New(strings.TrimSpace(doc.Find("small.error-code").Text()))
-		if temp != nil {
-			if len(temp.Error()) != 0 {
-				errLogin = temp
-				return
-			}
+		// TODO: check status codes (500,400,etc)
+
+		// may visit this path if login failed
+		if r.FileName() == loginPath {
+			response := bytes.NewReader(r.Body)
+			loginErrMsg, errOnResponse = scrape.ScrapeLoginError(response)
 		}
 	})
+
 	err := s.c.Post(loginUrl, map[string]string{
 		"username": us,
 		"password": ps,
 		"login":    "Masuk",
 	})
-
 	if err != nil {
 		if err.Error() != "Found" {
-			return err
+			return "", err
 		}
 	}
-	if errLogin != nil {
-		if len(errLogin.Error()) != 0 {
-			return errLogin
-		}
+
+	// login fail
+	if loginErrMsg != "" {
+		return loginErrMsg, siamerr.ErrLoginFail
 	}
-	s.LoginStatus = true
-	return nil
+
+	return loginErrMsg, errOnResponse
 }
 
+// GetData will fill in user's Data or return an error
 func (s *User) GetData() error {
-	//scraping data mahasiswas
-	result := make([]string, 8)
-	s.c.OnHTML("div[class=\"bio-info\"]", func(h *colly.HTMLElement) {
-		h.ForEach("div", func(i int, h *colly.HTMLElement) {
-			each := strings.TrimSpace(h.Text)
-			if each != "PDDIKTI KEMDIKBUDDetail" {
-				result[i] = h.Text
-			}
-		})
+	var onScrapeErr error
+	var data models.UserData
+
+	// scraping data mahasiswas
+	s.c.OnHTML("", func(h *colly.HTMLElement) {
+		data, onScrapeErr = scrape.ScrapeDataUser(bytes.NewReader(h.Response.Body))
 	})
 	err := s.c.Visit(siamUrl)
-	if err != nil {
-		return err
-	}
+	if err != nil { return err }
+	if onScrapeErr != nil { return onScrapeErr }
 
-	s.Account.NIM = result[0]
-	s.Account.Nama = result[1]
-	// result2 = Jenjang/Fakultas--/--
-	jenjangFakultas := strings.Split(result[2][16:], "/")
-	s.Account.Jenjang = jenjangFakultas[0]
-	s.Account.Fakultas = jenjangFakultas[1]
-	s.Account.Jurusan = result[3][7:]
-	s.Account.ProgramStudi = result[4][13:]
-	s.Account.Seleksi = result[5][7:]
-	s.Account.NomorUjian = result[6][11:]
-	s.Account.FotoProfil = fmt.Sprintf("https://siakad.ub.ac.id/dirfoto/foto/foto_20%s/%s.jpg", s.Account.NIM[0:2], s.Account.NIM)
+	s.Data = data
 	return nil
 }
 
-// make sure to defer this method after login, so the phpsessionid won't be misused
+// Make sure to defer this method after login, so the phpsessionid won't be misused
 func (s *User) Logout() error {
 	if !s.LoginStatus {
-		return siamerr.ErrorNotLoggedIn
+		return siamerr.ErrNotLoggedIn
 	}
 	s.c.Visit(logoutUrl)
 	return nil

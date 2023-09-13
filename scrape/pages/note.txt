@@ -1,0 +1,6 @@
+Setiap masukin page baru, tolong ganti data-data ini:
+- Email (...@student.ub.ac.id)
+- Nama
+- NIM
+- Nomor Ujian
+- Link PDDIKTI
