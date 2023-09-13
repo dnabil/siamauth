@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/dnabil/siamauth/siamerr"
 	"github.com/gocolly/colly"
 )
 
@@ -13,9 +14,6 @@ var (
 	loginUrl  string = "https://siam.ub.ac.id/index.php/"  //POST
 	siamUrl   string = "https://siam.ub.ac.id/"            //GET
 	logoutUrl string = "https://siam.ub.ac.id/logout.php/" //GET
-
-	ErrorNotLoggedIn error = errors.New("please login first")
-	ErrorLoggedIn    error = errors.New("already logged in")
 )
 
 type (
@@ -65,7 +63,7 @@ func (s *User) AutoScrap(username, password string) (Account, error) {
 
 func (s *User) Login(us string, ps string) error {
 	if s.LoginStatus {
-		return ErrorLoggedIn
+		return siamerr.ErrorLoggedIn
 	}
 
 	var errLogin error
@@ -138,7 +136,7 @@ func (s *User) GetData() error {
 // make sure to defer this method after login, so the phpsessionid won't be misused
 func (s *User) Logout() error {
 	if !s.LoginStatus {
-		return ErrorNotLoggedIn
+		return siamerr.ErrorNotLoggedIn
 	}
 	s.c.Visit(logoutUrl)
 	return nil
