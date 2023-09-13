@@ -1,0 +1,2017 @@
+<meta charset="UTF-8" />
+<style>
+  header,
+  section {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #ffcbcb;
+    /* border: 1px solid #d49d38; */
+    font-size: 13px;
+    padding-bottom: 1px;
+  }
+  header {
+    text-align: center;
+  }
+  header h1,
+  header p {
+    margin: 10px;
+  }
+  input[name="radio-pengumuman"] {
+    display: none;
+  }
+  label.label-accordion {
+    font-size: 15px;
+    cursor: pointer;
+    display: block;
+    padding: 5px 10px;
+    /*transition: all 0.2s ease-in;*/
+    background: #9a2121;
+    border-top: 1px solid #ea3939;
+    border-bottom: 1px solid #581313;
+    font-weight: bold;
+    color: #ffc905;
+    margin-bottom: unset !important;
+  }
+  label:hover {
+    background-color: #d82d2d;
+  }
+
+  div p {
+    opacity: 0;
+    font-size: 0;
+    padding: 0 10px;
+    margin: 0;
+  }
+  input[name="radio-pengumuman"]:checked ~ p {
+    opacity: 1;
+    font-size: 13px;
+    padding: 10px;
+  }
+</style>
+<html>
+  <head>
+    <title>Sistem Informasi Akademik Mahasiswa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <script type="text/javascript">
+      var message = "";
+      function clickIE() {
+        if (document.all) {
+          message;
+          return false;
+        }
+      }
+      function clickNS(e) {
+        if (document.layers || (document.getElementById && !document.all)) {
+          if (e.which == 2 || e.which == 3) {
+            message;
+            return false;
+          }
+        }
+      }
+      if (document.layers) {
+        document.captureEvents(Event.MOUSEDOWN);
+        document.onmousedown = clickNS;
+      } else {
+        document.onmouseup = clickNS;
+        document.oncontextmenu = clickIE;
+      }
+      document.oncontextmenu = new Function("return false");
+    </script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(["_setAccount", "UA-12978503-5"]);
+      _gaq.push(["_trackPageview"]);
+
+      (function () {
+        var ga = document.createElement("script");
+        ga.type = "text/javascript";
+        ga.async = true;
+        ga.src =
+          ("https:" == document.location.protocol
+            ? "https://ssl"
+            : "http://www") + ".google-analytics.com/ga.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <link
+      href="https://siamstatic.ub.ac.id/css/siam.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="font-awesome/css/font-awesome.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script
+      src="https://siamstatic.ub.ac.id/siam.js"
+      type="text/javascript"
+      language="javascript"
+    ></script>
+    <style>
+      .calendar {
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body style="width: 760px; margin: 0 auto" bgcolor="#159">
+    <map name="navigation">
+      <area shape="rect" coords="315,20,380,80" href="krs.php" />
+      <area shape="rect" coords="381,20,456,80" href="registrasi.php" />
+      <area shape="rect" coords="457,20,516,80" href="biodata.tampil.php" />
+      <area shape="rect" coords="517,20,580,80" href="wisuda.home.php" />
+      <area shape="rect" coords="581,20,682,80" href="beasiswa.php" />
+      <area shape="rect" coords="683,20,738,80" href="logout.php"
+    /></map>
+    <table cellpadding="0" cellspacing="0" border="0">
+      <td><img src="images/title-en.png" usemap="#navigation" border="0" /></td>
+    </table>
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="31" background="images/left.gif"></td>
+        <td width="705" bgcolor="#ffffff" valign="top" class="text2">
+          <div align="right" style="margin-right: 40px; position: relatif">
+            Klik
+            <a href="http://bais.ub.ac.id/" class="linkmenu" target="_blank"
+              ><b>GANTI KATA SANDI</b></a
+            >
+            untuk mengubah kata sandi akun SIAM Anda ! &nbsp; &nbsp;<br />Pastikan
+            Anda <b>KELUAR</b> sebelum meninggalkan komputer Anda!
+            <i>Klik ikon KELUAR di pojok kanan atas</i>! &nbsp; &nbsp;
+            <div style="position: relatif; margin: -36px -36px 0 0">
+              <a target="blank" href="panduan/manual%20SIAM_agust%202017.pdf"
+                ><img src="https://siamstatic.ub.ac.id/images/unduhpanduan.png"
+              /></a>
+            </div>
+          </div>
+
+          <br />
+          <table cellpadding="0" cellspacing="0" border="0" width="705">
+            <tr>
+              <td valign="top">
+                <div
+                  class="photo-frame"
+                  style="position: relative; width: 100px; height: 100px"
+                >
+                  <div
+                    class="photo-id"
+                    style="
+                      width: 100px;
+                      height: 100px;
+                      overflow: hidden;
+                      background: url(https://siakad.ub.ac.id/dirfoto/foto/foto_2021/111111111111111.jpg);
+                      background-position: center top;
+                      background-repeat: no-repeat;
+                      background-size: 100% auto;
+                    "
+                  ></div>
+                </div>
+              </td>
+              <td width="20" valign="top" align="center"></td>
+              <td class="text" width="363" valign="top">
+                <div class="bio-info">
+                  <div class="textgreen"><b>111111111111111</b></div>
+                  <div class="bio-name">Nama User</div>
+                  <div>
+                    <span class="label"
+                      >Jenjang/Fakultas<i class="fa fa-angle-right"></i></span
+                    >S1/Ilmu Komputer
+                  </div>
+                  <div>
+                    <span class="label"
+                      >Jurusan<i class="fa fa-angle-right"></i></span
+                    >Teknologi Informasi
+                  </div>
+                  <div>
+                    <span class="label"
+                      >Program Studi<i class="fa fa-angle-right"></i></span
+                    >Teknologi Informasi
+                  </div>
+                  <div>
+                    <span class="label"
+                      >Seleksi<i class="fa fa-angle-right"></i></span
+                    >Seleksi Bersama Masuk Perguruan Tinggi Negeri Brawijaya -
+                    Malang
+                  </div>
+                  <div>
+                    <span class="label"
+                      >Nomor Ujian<i class="fa fa-angle-right"></i></span
+                    >111111111111
+                  </div>
+                  <div>
+                    <span class="label"
+                      >PDDIKTI KEMDIKBUD<i class="fa fa-angle-right"></i></span
+                    ><a href="https://pddikti.kemdikbud.go.id/" target="_blank"
+                      >Detail</a
+                    >&nbsp;&nbsp;
+                  </div>
+                </div>
+                <br />Status :
+                <strong><big style="color: #1262a8">AKTIF</big></strong>
+              </td>
+              <td valign="top">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a
+                        href="absensi.online.php"
+                        class="linkmenu"
+                        >PRESENSI ONLINE<br />&nbsp; &nbsp; &nbsp;<en
+                          >Online Presence</en
+                        ></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a href="krs.php" class="linkmenu"
+                        >KARTU RENCANA STUDI<br />&nbsp; &nbsp; &nbsp;<en
+                          >Course Selection Sheet</en
+                        ></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<b
+                        ><a href="khs.php" class="linkmenu"
+                          >KARTU HASIL STUDI<br />&nbsp; &nbsp; &nbsp;<en
+                            >Course Grades</en
+                          ></a
+                        ></b
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a href="class.php" class="linkmenu"
+                        >JADWAL KULIAH<br />&nbsp; &nbsp; &nbsp;<en
+                          >Course Schedule</en
+                        ></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a href="exam.php" class="linkmenu"
+                        >JADWAL UJIAN<br />&nbsp; &nbsp; &nbsp;<en
+                          >Exam Schedule</en
+                        ></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a href="absensi.php" class="linkmenu"
+                        >ABSENSI<br />&nbsp; &nbsp; &nbsp;<en>Attendance</en></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a
+                        href="rekapstudi.php"
+                        class="linkmenu"
+                        >REKAP HASIL STUDI<br />&nbsp; &nbsp; &nbsp;<en
+                          >Summary of Course Grades</en
+                        ></a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="5">
+                      <img
+                        src="https://siamstatic.ub.ac.id/images/linesub.gif"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text">
+                      &nbsp; &nbsp; &nbsp;<a
+                        href="tugasakhir.php"
+                        class="linkmenu"
+                        >TUGAS AKHIR<br />&nbsp; &nbsp; &nbsp;<en>Thesis</en></a
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4"><br /><br /></td>
+            </tr>
+            <tr>
+              <td
+                colspan="4"
+                width="100%"
+                style="padding: 15px; background: #eee"
+              >
+                <h2 style="margin: 0; font-size: 16px; font-weight: bold">
+                  PENGUMUMAN :
+                  <button
+                    id="show_button"
+                    style="
+                      float: right;
+                      background: #105599;
+                      border: 0;
+                      border-radius: 3px;
+                      padding: 5px 10px;
+                      color: #ffffff;
+                      font-weight: bold;
+                      cursor: pointer;
+                      display: none;
+                    "
+                    onclick="show_anon();"
+                  >
+                    Tampilkan</button
+                  ><button
+                    id="hide_button"
+                    style="
+                      float: right;
+                      background: #f3989c;
+                      border: 0;
+                      border-radius: 3px;
+                      padding: 5px 10px;
+                      color: #ab1f1f;
+                      font-weight: bold;
+                      cursor: pointer;
+                    "
+                    onclick="hide_anon();"
+                  >
+                    Sembunyikan
+                  </button>
+                </h2>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" width="100%">
+                <section id="announcement" style="width: 100%" ;>
+                  <div>
+                    <input type="checkbox" id="q0" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q0"
+                      >&#x1F4E7; Email Mahasiswa</label
+                    >
+                    <p>
+                      Anda sudah mempunyai account email dengan alamat :
+                      emailmahasiswa@student.ub.ac.id.<br />Untuk masuk ke email
+                      mahasiswa, silahkan buka
+                      <a href="https://gapura.ub.ac.id" target="_blank"
+                        >https://gapura.ub.ac.id</a
+                      >
+                      kemudian klik Login.
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q1" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q1"
+                      >&#x1F3EB; Pengumuman Prodi</label
+                    >
+                    <p>Tidak ada pengumuman.</p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q11" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q11"
+                      >&#x1F489; Survei Vaksin
+                    </label>
+                    <p>
+                      <a href="survey-kuliah-hybrid.php" target="_blank"
+                        >Klik disini untuk mengisi Survei Vaksin.</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q2" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q2"
+                      >&#x1F9FE; Bantuan Keuangan</label
+                    >
+                    <p>
+                      <a href="sibaku.php" target="_blank"
+                        >Pengumuman SIBAKU dapat dilihat dengan klik disini.</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q4" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q4"
+                      >&#x1F30E; TOEFL ITP</label
+                    >
+                    <p>
+                      <a
+                        href="https://s.ub.ac.id/blctestoeflrutin/"
+                        target="_blank"
+                        >Seluruh mahasiswa UB mulai semester 7 (S1 dan D4) dan
+                        semester 5 (D3) diwajibkan segera melakukan pendaftaran
+                        sertifikasi Bahasa Inggris (TOEFL ITP) pada tautan
+                        berikut: https://s.ub.ac.id/blctestoeflrutin/</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q5" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q5"
+                      >&#x1F4F2; PDDIKTI dan Bantuan Kuota Internet</label
+                    >
+                    <p>
+                      <a href="updBioPDDIKTI.php" target="_blank"
+                        >Klik di sini untuk update data kebutuhan PDDIKTI
+                        (Kemendikbud) dan bantuan kuota internet (pulsa).<br />
+                        Bantuan kuota internet diperuntukan bagi jenjang S1, D3
+                        dan D4. Segera isikan dan kabarkan ke teman-teman
+                        Anda.</a
+                      >
+                    </p>
+                    <div style="clear: both"></div>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q8" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q8"
+                      >&#x1F4BB; Sertifikasi IT</label
+                    >
+                    <p>
+                      <a href="https://s.ub.ac.id/sertifikasi" target="_blank"
+                        >Klik disini untuk melakukan pendaftaran sertifikasi IT
+                        (khusus S1, D3, dan D4).</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q9" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q9"
+                      >&#x1F4B0; Pendataan Wirausaha Mahasiswa</label
+                    >
+                    <p>
+                      <a href="wirausaha.php" target="_blank"
+                        >Klik disini untuk melakukan pendataan kegiatana
+                        wirausaha Mahasiswa.</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q10" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q10"
+                      >&#x1F4DD; Cuti dan Pengunduran Diri Mahasiswa</label
+                    >
+                    <p>
+                      Pengajuan cuti dan pengunduran diri dapat dilakukan secara
+                      online mulai tanggal
+                      <strong>31 Juli 2023 hingga 13 Oktober 2023</strong>
+                      melalui menu:<br />
+                      <strong>Pengajuan cuti:</strong>
+                      <a href="https://siam.ub.ac.id/cuti.php" target="_blank"
+                        >https://siam.ub.ac.id/cuti.php</a
+                      ><br />
+                      <strong>Permohonan pengunduran diri:</strong>
+                      <a href="https://siam.ub.ac.id/undur.php" target="_blank"
+                        >https://siam.ub.ac.id/undur.php</a
+                      >
+                    </p>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="q12" name="radio-pengumuman" />
+                    <label class="label-accordion" for="q12"
+                      >&#x1F6F5; Survey Kendaraan Bermotor</label
+                    >
+                    <p>
+                      <a href="survey-kendaraan.php" target="_blank"
+                        >Klik disini untuk mengisi data kendaraan bermotor.</a
+                      >
+                    </p>
+                  </div>
+                </section>
+              </td>
+            </tr>
+          </table>
+          <br />
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td>
+                <img src="https://siamstatic.ub.ac.id/images/linesec.gif" />
+              </td>
+            </tr>
+          </table>
+          <script>
+            function show_anon() {
+              document.getElementById("show_button").style.display = "none";
+              document.getElementById("hide_button").style.display = "initial";
+              document.getElementById("announcement").style.display = "initial";
+              //$('#show_button').css('display','none');
+              //$('#hide_button').css('display','block');
+              //$('.announcement').css('display','block');
+              $.ajax({
+                url: "show.pengumuman.php",
+                type: "POST",
+                data: {
+                  SESSION: {
+                    PENGUMUMAN: "1",
+                  },
+                },
+              });
+            }
+
+            function hide_anon() {
+              document.getElementById("show_button").style.display = "initial";
+              document.getElementById("hide_button").style.display = "none";
+              document.getElementById("announcement").style.display = "none";
+              //$('#show_button').css('display','block');
+              //$('#hide_button').css('display','none');
+              //$('.announcement').css('display','none');
+              $.ajax({
+                url: "show.pengumuman.php",
+                type: "POST",
+                data: {
+                  SESSION: {
+                    PENGUMUMAN: "0",
+                  },
+                },
+              });
+            }
+          </script>
+          <script
+            type="text/javascript"
+            src="https://siamstatic.ub.ac.id/javascript/jquery-latest.js"
+          ></script>
+          <script
+            type="text/javascript"
+            src="https://siamstatic.ub.ac.id/javascript/thickbox.js"
+          ></script>
+
+          <!-- DATA 1 DISINI -->
+
+          <table cellpadding="0" cellspacing="0" border="0" width="705">
+            <form
+              action="https://siam.ub.ac.id/addcourse.php"
+              method="post"
+            ></form>
+            <tbody>
+              <tr>
+                <td height="45" width="15">
+                  <img
+                    src="https://siamstatic.ub.ac.id/images/pixel.gif"
+                    width="15"
+                    height="1"
+                  />
+                </td>
+                <td width="15">
+                  <img src="https://siamstatic.ub.ac.id/images/bullet.gif" />
+                </td>
+                <td width="387" class="text">
+                  <span class="section">Jadwal Mata Kuliah Ditawarkan</span>
+                  &nbsp; <b>:</b> &nbsp; GANJIL 2023/2024
+                </td>
+                <td width="1">
+                  <img src="https://siamstatic.ub.ac.id/images/pixel.gif" />
+                </td>
+                <td width="42" align="center">
+                  <a href="https://siam.ub.ac.id/krs.php"
+                    ><img
+                      src="https://siamstatic.ub.ac.id/images/addcourse.gif"
+                      border="0"
+                  /></a>
+                </td>
+                <td width="245" class="text">
+                  <a href="https://siam.ub.ac.id/krs.php" class="linkmenu"
+                    ><b>KARTU RENCANA STUDI</b></a
+                  >
+                  <br />Klik untuk melihat Kartu Rencana Studi Anda.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- END OF DATA 1 -->
+
+          <table cellpadding="0" cellspacing="0" border="0">
+            <td>
+              <img src="https://siamstatic.ub.ac.id/images/linesec.gif" />
+            </td>
+          </table>
+          <br />
+
+          <!--  DATA 2 (TABLE ADDCOURSE) DISINI  -->
+          <div align="center">
+            <table cellpadding="2" cellspacing="2" border="0">
+              <tbody>
+                <tr>
+                  <td class="text" width="150"><b>JENIS JADWAL</b></td>
+                  <td width="300">
+                    <select name="type" class="text" style="width: 200px">
+                      <option value="0" selected="">Jadwal Non Lintas</option>
+                      <option value="1">
+                        Jadwal Lintas Prodi Dalam Fakultas
+                      </option>
+                      <option value="2">
+                        Jadwal Merdeka Belajar (Lintas Antar Fakultas)
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text" width="150"><b>HARI</b></td>
+                  <td width="300">
+                    <select name="day" class="text" style="width: 200px">
+                      <option value="x">Seluruh hari</option>
+                      <option value="1" selected="">Senin</option>
+                      <option value="2">Selasa</option>
+                      <option value="3">Rabu</option>
+                      <option value="4">Kamis</option>
+                      <option value="5">Jum'at</option>
+                      <option value="6">Sabtu</option>
+                      <option value="7">Minggu</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text" width="150"><b>KODE MATA KULIAH</b></td>
+                  <td width="300">
+                    <input
+                      maxlength="15"
+                      type="text"
+                      name="kmk_find"
+                      value=""
+                      class="text"
+                      style="width: 200px"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text" width="150">&nbsp;</td>
+                  <td width="300">
+                    <input
+                      type="submit"
+                      name="search"
+                      value="CARI JADWAL"
+                      class="text"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <div style="text-align: center">
+              <i
+                >Sisa kuota yang tampil pada 2023-08-05 02:46:06<br />dapat
+                berubah sesuai jumlah mahasiswa yang mengambil
+              </i>
+            </div>
+            <br /><br />
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="https://siamstatic.ub.ac.id/images/linesec.gif" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <tr>
+                  <td bgcolor="#cccccc">
+                    <table
+                      cellpadding="3"
+                      cellspacing="1"
+                      border="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr
+                          class="textWhite"
+                          bgcolor="#000000"
+                          align="center"
+                          style="color: white"
+                        >
+                          <td height="23"><b>HARI</b></td>
+                          <td width="80"><b>JAM</b></td>
+                          <td><b>KELAS</b></td>
+                          <td><b>KODE</b></td>
+                          <td><b>MATA KULIAH</b></td>
+                          <td width="20"><b>THN. KURIKULUM</b></td>
+                          <td><b>Kuota</b></td>
+                          <td><b>SKS</b></td>
+                          <td><b>RUANG</b></td>
+                          <td><b>JENIS</b></td>
+                          <td><b>PILIH</b></td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61001</td>
+                          <td align="left" valign="top">KALKULUS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.1</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61007</td>
+                          <td align="left" valign="top">JARINGAN KOMPUTER</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.12</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61009</td>
+                          <td align="left" valign="top">BASIS DATA</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.7</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61011</td>
+                          <td align="left" valign="top">KECERDASAN BUATAN</td>
+                          <td>2020</td>
+                          <td valign="top">0/30</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F2.6</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61019</td>
+                          <td align="left" valign="top">
+                            REKAYASA PERANGKAT LUNAK
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.13</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61022</td>
+                          <td align="left" valign="top">
+                            ADMINISTRASI SISTEM SERVER
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">11/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.2</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61028</td>
+                          <td align="left" valign="top">KEAMANAN JARINGAN</td>
+                          <td>2020</td>
+                          <td valign="top">9/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.11</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61048</td>
+                          <td align="left" valign="top">
+                            PENGOLAHAN CITRA DIGITAL
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">9/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.3</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            A<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">UBU60004</td>
+                          <td align="left" valign="top">BAHASA INGGRIS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">2</td>
+                          <td valign="top">TIF06 - F2.1</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">16:20 - 18:09</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61007</td>
+                          <td align="left" valign="top">JARINGAN KOMPUTER</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.2</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:50 - 09:29</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61008</td>
+                          <td align="left" valign="top">
+                            DESAIN DAN ANALISIS ALGORITMA
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.6</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61040</td>
+                          <td align="left" valign="top">
+                            PERANCANGAN PENGALAMAN PENGGUNA
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.7</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61059</td>
+                          <td align="left" valign="top">
+                            PENGANTAR SAINS DATA
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">2/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.3</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61067</td>
+                          <td align="left" valign="top">
+                            MANAJEMEN INDUSTRI TEKNOLOGI INFORMASI
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">40/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.13</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">08:40 - 10:19</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60014</td>
+                          <td align="left" valign="top">PEMROGRAMAN DASAR</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.6</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            B<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">UBU60004</td>
+                          <td align="left" valign="top">BAHASA INGGRIS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">2</td>
+                          <td valign="top">TIF06 - F2.2</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">10:20 - 11:59</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61007</td>
+                          <td align="left" valign="top">JARINGAN KOMPUTER</td>
+                          <td>2020</td>
+                          <td valign="top">1/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.6</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61009</td>
+                          <td align="left" valign="top">BASIS DATA</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.4</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">14:30 - 16:19</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61010</td>
+                          <td align="left" valign="top">METODE NUMERIK</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.10</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61018</td>
+                          <td align="left" valign="top">
+                            PEMROGRAMAN SISTEM INTERAKTIF
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.3</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61040</td>
+                          <td align="left" valign="top">
+                            PERANCANGAN PENGALAMAN PENGGUNA
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">10/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.12</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60014</td>
+                          <td align="left" valign="top">PEMROGRAMAN DASAR</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.8</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            C<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">UBU60004</td>
+                          <td align="left" valign="top">BAHASA INGGRIS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">2</td>
+                          <td valign="top">TIF06 - F2.4</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61001</td>
+                          <td align="left" valign="top">KALKULUS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.11</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61012</td>
+                          <td align="left" valign="top">
+                            INTERAKSI MANUSIA DAN KOMPUTER
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.4</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61019</td>
+                          <td align="left" valign="top">
+                            REKAYASA PERANGKAT LUNAK
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">7/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.14</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61020</td>
+                          <td align="left" valign="top">
+                            JARINGAN SARAF TIRUAN
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F4.14</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61040</td>
+                          <td align="left" valign="top">
+                            PERANCANGAN PENGALAMAN PENGGUNA
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.4</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60011</td>
+                          <td align="left" valign="top">
+                            ARSITEKTUR DAN ORGANISASI KOMPUTER
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.11</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">12:50 - 14:29</td>
+                          <td valign="top">
+                            D<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">UBU60004</td>
+                          <td align="left" valign="top">BAHASA INGGRIS</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">2</td>
+                          <td valign="top">TIF06 - F2.8</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            E<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61019</td>
+                          <td align="left" valign="top">
+                            REKAYASA PERANGKAT LUNAK
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F4.12</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            E<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60015</td>
+                          <td align="left" valign="top">
+                            MATEMATIKA KOMPUTASI
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.14</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            F<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61018</td>
+                          <td align="left" valign="top">
+                            PEMROGRAMAN SISTEM INTERAKTIF
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">1/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.9</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">14:30 - 16:19</td>
+                          <td valign="top">
+                            F<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61020</td>
+                          <td align="left" valign="top">
+                            JARINGAN SARAF TIRUAN
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">7/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.2</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            F<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60014</td>
+                          <td align="left" valign="top">PEMROGRAMAN DASAR</td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF07 - G1.4</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            F<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">COM60016</td>
+                          <td align="left" valign="top">
+                            PENGANTAR KEILMUAN KOMPUTER
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/5</td>
+                          <td valign="top">2</td>
+                          <td valign="top">TIF06 - F3.3</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">09:30 - 11:09</td>
+                          <td valign="top">
+                            G<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61010</td>
+                          <td align="left" valign="top">METODE NUMERIK</td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F2.9</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            G<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61012</td>
+                          <td align="left" valign="top">
+                            INTERAKSI MANUSIA DAN KOMPUTER
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.12</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            G<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61020</td>
+                          <td align="left" valign="top">
+                            JARINGAN SARAF TIRUAN
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">0/40</td>
+                          <td valign="top">4</td>
+                          <td valign="top">TIF06 - F3.14</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">15:30 - 17:09</td>
+                          <td valign="top">
+                            H<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61021</td>
+                          <td align="left" valign="top">
+                            ADMINISTRASI DAN MANAJEMEN JARINGAN
+                          </td>
+                          <td>2020</td>
+                          <td valign="top">6/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F3.6</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="text" bgcolor="#ffffff" align="center">
+                          <td valign="top">Senin</td>
+                          <td valign="top">07:00 - 08:39</td>
+                          <td valign="top">
+                            H<br />
+                            Teknik Informatika
+                          </td>
+                          <td valign="top">CIF61056</td>
+                          <td align="left" valign="top">SWARM INTELLIGENCE</td>
+                          <td>2020</td>
+                          <td valign="top">2/40</td>
+                          <td valign="top">3</td>
+                          <td valign="top">TIF06 - F4.7</td>
+                          <td valign="top">Luring</td>
+                          <td valign="top">
+                            <button
+                              style="
+                                cursor: pointer;
+                                background: none;
+                                border: none;
+                              "
+                            >
+                              <img
+                                src="https://siamstatic.ub.ac.id/images/selectcourse.gif"
+                                border="0"
+                              />
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br />
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <img src="https://siamstatic.ub.ac.id/images/linesec.gif" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br /><br />
+          </div>
+          <!--  END OF DATA 2 (TABLE ADDCOURSE) DISINI  -->
+
+          <br />
+          <table cellpadding="0" cellspacing="0" border="0">
+            <td>
+              <img src="https://siamstatic.ub.ac.id/images/linesec.gif" />
+            </td>
+          </table>
+          <br /><br />
+        </td>
+        <td width="15" background="images/right.gif">
+          <img
+            src="https://siamstatic.ub.ac.id/images/pixel.gif"
+            width="15"
+            height="1"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td height="11"><img src="images/lbottom.gif" /></td>
+        <td bgcolor="#ffffff" background="images/bottom.gif">
+          <img src="images/pixel.gif" width="705" height="11" />
+        </td>
+        <td><img src="images/rbottom.gif" /></td>
+      </tr>
+    </table>
+  </body>
+</html>
