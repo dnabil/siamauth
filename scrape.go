@@ -3,7 +3,6 @@ package siamauth
 import (
 	"fmt"
 	"io"
-	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -17,7 +16,7 @@ func ScrapeAddCourse(r io.Reader) ([]AddCourse, error) {
 
 	doc, err := goquery.NewDocumentFromReader(r)
 	if err != nil {
-		log.Fatal(err)
+		return courses, err
 	}
 
 	// find add course table head
@@ -181,7 +180,7 @@ func ScrapeKrs(r io.Reader) (Krs, error){
 
 	doc, err := goquery.NewDocumentFromReader(r)
 	if err != nil {
-		log.Fatal(err)
+		return krs, err
 	}
 
 	tableHeader := doc.Find("tr.textWhite")
@@ -248,7 +247,6 @@ func ScrapeKrs(r io.Reader) (Krs, error){
 			ProgramStudi: tempArr[5],
 		}
 		krs.MataKuliah = append(krs.MataKuliah, matkul)
-		// log.Println(matkul)
 	}
 	// == end of scraping ==
 
