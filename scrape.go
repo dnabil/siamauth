@@ -174,3 +174,83 @@ func ScrapeLoginError(r io.Reader) (string, error) {
 	
 	return msgString, nil
 }
+
+//page: krs
+func ScrapeKrs(r io.Reader) (Krs, error){
+	var krs Krs;
+
+	doc, err := goquery.NewDocumentFromReader(r)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tableHeader := doc.Find("tr.textWhite")
+	thLength := tableHeader.Length()
+	if thLength <= 0 {
+		return krs, ErrNoElement
+	}
+
+	// iterate to find the right table header
+	found := false
+	for i := 0; i < thLength; i++ {
+		item := tableHeader.Eq(i)
+		if item.Children().Length() == 8 { // is the number of column
+			// check table header col value
+			if strings.EqualFold(tableHeader.Children().Text(), "NOKODENAMA MATA KULIAHSKSKELASKETERANGANBATALPRODI JADWAL") {
+				tableHeader = item
+				found = true
+				break
+			}
+		}
+	}
+	if !found {
+		return krs, ErrNoElement
+	}
+
+	tBody := tableHeader.Parent()
+	
+	// == scrape ==
+
+	span := doc.Find("span.section")
+	if !strings.EqualFold("Kartu Rencana Studi", trimSpace(span.Text())){
+		return krs, ErrNoElement
+	}
+
+	MasaKrsText := span.Parent().Text() // [string] : [MASA KRS]
+	masaArr := strings.Split(MasaKrsText, ":")
+	if len(masaArr) < 2 {
+		return krs, ErrNoElement
+	}
+	krs.MasaKRS = trimSpace(masaArr[1])
+
+	trs := tBody.Find("tr:nth-of-type(n+2)") // skip table header
+	// ignore last 2 trs (karena 2 baris tersebut data sks)
+	for i := 0; i < trs.Length()-2; i++{
+		tds := trs.Eq(i).Children()
+		tempArr := make([]string, 0, tds.Length()-2) // skip 'BATAL' and 'NO' column
+
+		// put it into array first, proccess it then append the data to courses.
+
+		for j := 1; j < tds.Length(); j++{ // skip 'NO' column
+			if (j == 6) { // skip 'BATAL' column
+				continue
+			}
+			tempArr = append(tempArr, trimSpace(tds.Eq(j).Text()))
+		}
+
+		sks, _ := strconv.ParseFloat(tempArr[2], 32)
+		matkul := MataKuliahKrs{
+			Kode: tempArr[0],
+			MataKuliah: tempArr[1],
+			SKS: int(sks),
+			Kelas: tempArr[3],
+			Keterangan: tempArr[4],
+			ProgramStudi: tempArr[5],
+		}
+		krs.MataKuliah = append(krs.MataKuliah, matkul)
+		// log.Println(matkul)
+	}
+	// == end of scraping ==
+
+	return krs, nil
+}

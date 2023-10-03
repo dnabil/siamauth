@@ -67,3 +67,25 @@ func TestScrapeLoginError(t *testing.T) {
 	assert.NotZero(t, loginErrMsg)
 	assert.Zero(t, err)
 }
+
+func TestScrapeKrs(t *testing.T){
+	file, err := os.Open("pages/krs.html")
+	require.NoError(t, err)
+	defer file.Close()
+
+	krs, err := ScrapeKrs(file)
+	require.NoError(t, err)
+	require.NotZero(t, krs)
+	assert.NotZero(t, krs.MasaKRS)
+	require.NotZero(t, len(krs.MataKuliah))
+	
+	for i := 0; i < len(krs.MataKuliah); i++ {
+		matkul := krs.MataKuliah[i]
+		assert.NotZero(t, matkul.Kelas)
+		assert.NotZero(t, matkul.Keterangan)
+		assert.NotZero(t, matkul.Kode)
+		assert.NotZero(t, matkul.MataKuliah)
+		assert.NotZero(t, matkul.ProgramStudi)
+		assert.NotZero(t, matkul.SKS)
+	}
+}

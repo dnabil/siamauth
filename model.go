@@ -29,4 +29,19 @@ type (
 		Ruang          string
 		Jenis          string // Luring/Daring/Hybrid
 	}
+
+	Krs struct {
+		MasaKRS string
+
+		MataKuliah []MataKuliahKrs
+	}
+
+	MataKuliahKrs struct {
+		Kode         string
+		MataKuliah   string
+		SKS          int
+		Keterangan   string
+		Kelas        string
+		ProgramStudi string
+	}
 )
