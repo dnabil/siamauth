@@ -1,4 +1,4 @@
-package siamerr
+package siamauth
 
 import "errors"
 
@@ -11,5 +11,4 @@ var (
 	ErrNoElement 	error	= errors.New("element not found")
 	// login fail
 	ErrLoginFail	error	= errors.New("login fail, wrong credentials?")
-
 )

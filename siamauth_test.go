@@ -5,7 +5,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/dnabil/siamauth/siamerr"
 	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -47,7 +46,7 @@ func TestLogin(t *testing.T) {
 	t.Run("TestLoginFail", func(t *testing.T) {
 		user := NewUser()
 		errLoginMsg, err := user.Login("212121211000423", "212121211000423")
-		assert.Equal(t, siamerr.ErrLoginFail, err)
+		assert.Equal(t, ErrLoginFail, err)
 		assert.NotZero(t, errLoginMsg)
 		// assert.Zero(t, errLoginMsg)
 	})

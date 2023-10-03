@@ -1,4 +1,4 @@
-package scrape
+package siamauth
 
 import (
 	"os"
@@ -18,7 +18,7 @@ func TestScrapeAddCourse(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, courses, "courses is not empty")
 
-	// check one of the data 
+	// check one of the data
 	c := courses[0]
 	hariValid := false
 	switch strings.ToLower(c.Hari) {
@@ -39,4 +39,31 @@ func TestScrapeAddCourse(t *testing.T) {
 	assert.NotZero(t, c.SKS)
 	assert.NotZero(t, c.Ruang)
 	assert.NotZero(t, c.Jenis)
+}
+
+func TestScrapeDataUser(t *testing.T) {
+	file, err := os.Open("pages/akademik.html")
+	require.NoError(t, err)
+	defer file.Close()
+
+	data, err := ScrapeDataUser(file)
+	require.NoError(t, err)
+	
+	assert.Equal(t, "111111111111111", data.NIM)
+	assert.Equal(t, "Nama User", data.Nama)
+	assert.Equal(t, "S1", data.Jenjang)
+	assert.Equal(t, "Ilmu Komputer", data.Fakultas)
+	assert.Equal(t, "Teknologi Informasi", data.Jurusan)
+	assert.Equal(t, "Seleksi Bersama Masuk Perguruan Tinggi Negeri Brawijaya - Malang", data.Seleksi)
+	assert.Equal(t, "111111111111", data.NomorUjian)
+}
+
+func TestScrapeLoginError(t *testing.T) {
+	file, err := os.Open("pages/index_login fail.html")
+	require.NoError(t, err)
+	defer file.Close()
+
+	loginErrMsg, err := ScrapeLoginError(file)
+	assert.NotZero(t, loginErrMsg)
+	assert.Zero(t, err)
 }

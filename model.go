@@ -1,4 +1,4 @@
-package siammodel
+package siamauth
 
 type (
 	UserData struct {
