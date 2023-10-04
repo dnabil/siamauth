@@ -21,6 +21,7 @@ func TestMain(m *testing.M) {
 	}
 
 	user = NewUser()
+	user.Login(os.Getenv("NIM"), os.Getenv("PASSWORD"))
 
 	code := m.Run()
 
@@ -32,17 +33,6 @@ func TestMain(m *testing.M) {
 }
 
 func TestLogin(t *testing.T) {
-	t.Run("TestLoginSuccess", func(t *testing.T) {
-		username := os.Getenv("NIM")
-		require.NotZero(t, username)
-		password := os.Getenv("PASSWORD")
-		require.NotZero(t, password)
-
-		errLoginMsg, err := user.Login(username, password)
-		assert.NoError(t, err)
-		assert.Zero(t, errLoginMsg)
-	})
-
 	t.Run("TestLoginFail", func(t *testing.T) {
 		user := NewUser()
 		errLoginMsg, err := user.Login("212121211000423", "212121211000423")
@@ -50,4 +40,21 @@ func TestLogin(t *testing.T) {
 		assert.NotZero(t, errLoginMsg)
 		// assert.Zero(t, errLoginMsg)
 	})
+}
+
+func TestGetKrs(t *testing.T) {
+	krs, err := user.GetKrs()
+	require.NoError(t, err)
+
+	assert.NotZero(t, krs.MasaKRS)
+	require.NotNil(t, krs.MataKuliah)
+	require.NotZero(t, len(krs.MataKuliah))
+	for _, v := range krs.MataKuliah{
+		assert.NotZero(t, v.Kode)
+		assert.NotZero(t, v.MataKuliah)
+		assert.NotZero(t, v.SKS)
+		assert.NotZero(t, v.Keterangan)
+		assert.NotZero(t, v.Kelas)
+		assert.NotZero(t, v.ProgramStudi)
+	}
 }
