@@ -9,11 +9,13 @@ import (
 var (
 	loginPath		string = "index.php"
 	logoutPath		string = "logout.php"
+	krsPath			string = "krs.php"
 	// addCoursePath	string = "addcourse.php"
 
 	siamUrl			string = "https://siam.ub.ac.id/"			//GET
 	loginUrl		string = siamUrl + loginPath				//POST
 	logoutUrl		string = siamUrl + logoutPath				//GET
+	krsUrl			string = siamUrl + krsPath					//GET
 	// addCourseUrl	string = siamUrl + addCoursePath
 )
 
@@ -113,6 +115,30 @@ func (s *User) GetData() error {
 	if onScrapeErr != nil { return onScrapeErr }
 	s.Data = data
 	return nil
+}
+
+
+func (s *User) GetKrs() (Krs, error){
+	if !s.LoginStatus {
+		return Krs{}, ErrNotLoggedIn
+	}
+
+	var krs Krs
+	var errOnHtml error
+
+	s.c.OnHTML("*", func(h *colly.HTMLElement) {
+		krs, errOnHtml = ScrapeKrs(bytes.NewReader(h.Response.Body))
+	})
+	
+	err := s.c.Visit(krsUrl)
+	if err != nil {
+		return krs, err
+	}
+	if errOnHtml != nil {
+		return krs, errOnHtml
+	}
+
+	return krs, nil
 }
 
 // Make sure to defer this method after login, so the phpsessionid won't be misused
