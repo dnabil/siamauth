@@ -58,3 +58,16 @@ func TestGetKrs(t *testing.T) {
 		assert.NotZero(t, v.ProgramStudi)
 	}
 }
+
+func TestGetData(t *testing.T) {
+	err := user.GetData()
+	require.NoError(t, err)
+	
+	assert.NotZero(t, user.Data.NIM)
+	assert.NotZero(t, user.Data.Nama)
+	assert.NotZero(t, user.Data.Jenjang)
+	assert.NotZero(t, user.Data.Fakultas)
+	assert.NotZero(t, user.Data.Jurusan)
+	assert.NotZero(t, user.Data.Seleksi)
+	assert.NotZero(t, user.Data.NomorUjian)
+}
