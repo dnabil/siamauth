@@ -52,17 +52,13 @@ func (s *User) GetDataAndLogout(username, password string) (UserData, error) {
 	}
 
 	return s.Data, nil
-}
+} 
 
 
 // Please defer Logout() after this function is called
 //
 // will return a login error message (from siam) and an error (already logged in/login error/siam ui changes/server down/etc)
 func (s *User) Login(us string, ps string) (string, error) {
-	if s.LoginStatus {
-		return "", ErrLoggedIn
-	}
-
 	var errOnResponse error
 	var loginErrMsg string
 
@@ -96,22 +92,25 @@ func (s *User) Login(us string, ps string) (string, error) {
 		return loginErrMsg, ErrLoginFail
 	}
 
+	s.LoginStatus = true
 	return "", nil
 }
 
 // GetData will fill in user's Data or return an error
 func (s *User) GetData() error {
+	if !s.LoginStatus {
+		return ErrNotLoggedIn
+	}
 	var onScrapeErr error
 	var data UserData
 
 	// scraping data mahasiswas
-	s.c.OnHTML("", func(h *colly.HTMLElement) {
+	s.c.OnHTML("*", func(h *colly.HTMLElement) {
 		data, onScrapeErr = ScrapeDataUser(bytes.NewReader(h.Response.Body))
 	})
 	err := s.c.Visit(siamUrl)
 	if err != nil { return err }
 	if onScrapeErr != nil { return onScrapeErr }
-
 	s.Data = data
 	return nil
 }
