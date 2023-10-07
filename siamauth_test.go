@@ -43,7 +43,6 @@ func TestLogin(t *testing.T) {
 }
 
 func TestGetKrs(t *testing.T) {
-	
 	t.Run("TestGetKrsSuccess", func (t *testing.T)  {
 		krs, err := user.GetKrs()
 		require.NoError(t, err)
@@ -69,14 +68,23 @@ func TestGetKrs(t *testing.T) {
 }
 
 func TestGetData(t *testing.T) {
-	err := user.GetData()
-	require.NoError(t, err)
-	
-	assert.NotZero(t, user.Data.NIM)
-	assert.NotZero(t, user.Data.Nama)
-	assert.NotZero(t, user.Data.Jenjang)
-	assert.NotZero(t, user.Data.Fakultas)
-	assert.NotZero(t, user.Data.Jurusan)
-	assert.NotZero(t, user.Data.Seleksi)
-	assert.NotZero(t, user.Data.NomorUjian)
+	t.Run("TestGetDataSuccess", func(t *testing.T) {
+		err := user.GetData()
+		require.NoError(t, err)
+		
+		assert.NotZero(t, user.Data.NIM)
+		assert.NotZero(t, user.Data.Nama)
+		assert.NotZero(t, user.Data.Jenjang)
+		assert.NotZero(t, user.Data.Fakultas)
+		assert.NotZero(t, user.Data.Jurusan)
+		assert.NotZero(t, user.Data.Seleksi)
+		assert.NotZero(t, user.Data.NomorUjian)
+	})
+
+	t.Run("TestGetData fail for not logged in", func(t *testing.T) {
+		newUser := NewUser()
+		err := newUser.GetData()
+		assert.ErrorIs(t, err, ErrNotLoggedIn)
+		assert.Zero(t, newUser.Data)
+	})
 }
