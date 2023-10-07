@@ -43,20 +43,29 @@ func TestLogin(t *testing.T) {
 }
 
 func TestGetKrs(t *testing.T) {
-	krs, err := user.GetKrs()
-	require.NoError(t, err)
+	
+	t.Run("TestGetKrsSuccess", func (t *testing.T)  {
+		krs, err := user.GetKrs()
+		require.NoError(t, err)
 
-	assert.NotZero(t, krs.MasaKRS)
-	require.NotNil(t, krs.MataKuliah)
-	require.NotZero(t, len(krs.MataKuliah))
-	for _, v := range krs.MataKuliah{
-		assert.NotZero(t, v.Kode)
-		assert.NotZero(t, v.MataKuliah)
-		assert.NotZero(t, v.SKS)
-		assert.NotZero(t, v.Keterangan)
-		assert.NotZero(t, v.Kelas)
-		assert.NotZero(t, v.ProgramStudi)
-	}
+		assert.NotZero(t, krs.MasaKRS)
+		require.NotNil(t, krs.MataKuliah)
+		require.NotZero(t, len(krs.MataKuliah))
+		for _, v := range krs.MataKuliah{
+			assert.NotZero(t, v.Kode)
+			assert.NotZero(t, v.MataKuliah)
+			assert.NotZero(t, v.SKS)
+			assert.NotZero(t, v.Keterangan)
+			assert.NotZero(t, v.Kelas)
+			assert.NotZero(t, v.ProgramStudi)
+		}
+	})
+	t.Run("TestGetKrs fail not logged in", func(t *testing.T) {
+		newUser := NewUser()
+		krs, err := newUser.GetKrs()
+		assert.ErrorIs(t, err, ErrNotLoggedIn)
+		assert.Zero(t, krs)
+	})
 }
 
 func TestGetData(t *testing.T) {
