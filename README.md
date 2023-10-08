@@ -1,6 +1,6 @@
 # SIAM UB Auth
 
-https://siam.ub.ac.id authentication with scraping method
+https://siam.ub.ac.id authentication with scraping method. +scraping some other data like krs, addcourse, etc
 
 import:
 
@@ -13,21 +13,22 @@ import (
 run go get command:
 
 ```
-go get github.com/dnabil/siamauth
+go get -u github.com/dnabil/siamauth
 ```
 
 ## What's New
 
-Breaking Changes (v0.2.0):
+Breaking Changes (v0.3.0):
 
-- Error variables moved to /siamauth/siamerr
 - Login function now returns 2 data, error msg (string) and error
 
 New:
 
-- feat: GetDataAndLogout, basically: Login() GetData() and Logout()
-- refactor: move scraping logic to a new pkg (/scrape)
-- feat: Scrape addcourse.php logic :D
+- feat: user.GetDataAndLogout, basically: Login() GetData() and Logout()
+- feat: user.GetKrs & ScrapeKrs (/krs.php)
+- feat: ScrapeAddCourse logic (/addcourse.php)
+- the go-colly collector is now public in user's field (user.C)
+- more stable & efficient (added some tests and fixed some bad logic)
 
 ## Usage
 
@@ -37,11 +38,10 @@ siamauth constructor
 user := siamauth.NewUser()
 ```
 
-After that you can use the methods available for that user :). <a href="https://pkg.go.dev/github.com/dnabil/siamauth" target="_blank">Documentation</a>
+After that you can use the methods available for that user :D (use user.Login() first pls n then u can start web scraping siam). <a href="https://pkg.go.dev/github.com/dnabil/siamauth" target="_blank">Documentation</a> or see this <a target="_blank" href="https://github.com/dnabil/siamauth/blob/main/docs/example/main.go">code example</a>.
 
 Please note that after logging in, please defer user.Logout() so the session id won't be misused.
 
-Or if you just need the scraping logic for scraping siam pages, import the <a href="/dnabil/siamauth/tree/main/scrape" target="_blank">siamauth/scrape</a> pkg
+Or if you just need the scraping logic for scraping siam pages (if you have the html pages), use the funcs that starts with Scrape.. like ScrapeAddCourse to scrape /addcourse.php data, etc. Just pass in the html page as io.Reader as the argument.
 
-\*I am planning on adding more features like getting schedules, study plan (aka KRS), etc.. but still lazy.
 Pull requests are welcome :)
