@@ -7,21 +7,21 @@ import (
 )
 
 var (
-	loginPath		string = "index.php"
-	logoutPath		string = "logout.php"
-	krsPath			string = "krs.php"
+	pathLogin		string = "index.php"
+	pathLogout		string = "logout.php"
+	pathKrs			string = "krs.php"
 	// addCoursePath	string = "addcourse.php"
 
-	siamUrl			string = "https://siam.ub.ac.id/"			//GET
-	loginUrl		string = siamUrl + loginPath				//POST
-	logoutUrl		string = siamUrl + logoutPath				//GET
-	krsUrl			string = siamUrl + krsPath					//GET
+	urlSiam			string = "https://siam.ub.ac.id/"			//GET
+	urlLogin		string = urlSiam + pathLogin				//POST
+	urlLogout		string = urlSiam + pathLogout				//GET
+	urlKrs			string = urlSiam + pathKrs					//GET
 	// addCourseUrl	string = siamUrl + addCoursePath
 )
 
 type (
 	User struct {
-		c           *colly.Collector
+		C           *colly.Collector
 		Data     	UserData
 		LoginStatus bool
 	}
@@ -29,7 +29,7 @@ type (
 
 // constructor
 func NewUser() *User {
-	return &User{c: colly.NewCollector(
+	return &User{C: colly.NewCollector(
 		colly.UserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"),
 	), LoginStatus: false}
 }
@@ -61,20 +61,20 @@ func (s *User) GetDataAndLogout(username, password string) (UserData, error) {
 //
 // will return a login error message (from siam) and an error (already logged in/login error/siam ui changes/server down/etc)
 func (s *User) Login(us string, ps string) (string, error) {
+	c := s.C.Clone()
 	var errOnResponse error
 	var loginErrMsg string
 
-	s.c.OnResponse(func(r *colly.Response) {
+	c.OnResponse(func(r *colly.Response) {
 		// TODO: check status codes (500,400,etc)
 
 		// may visit this path if login failed
-		if r.FileName() == loginPath {
-			response := bytes.NewReader(r.Body)
-			loginErrMsg, errOnResponse = ScrapeLoginError(response)
+		if r.FileName() == pathLogin {
+			loginErrMsg, errOnResponse = ScrapeLoginError(bytes.NewReader(r.Body))
 		}
 	})
 
-	err := s.c.Post(loginUrl, map[string]string{
+	err := c.Post(urlLogin, map[string]string{
 		"username": us,
 		"password": ps,
 		"login":    "Masuk",
@@ -100,44 +100,45 @@ func (s *User) Login(us string, ps string) (string, error) {
 
 // GetData will fill in user's Data or return an error
 func (s *User) GetData() error {
-	if !s.LoginStatus {
-		return ErrNotLoggedIn
-	}
-	var onScrapeErr error
+	c := s.cloneCollector()
+
+	var errOnResponse error
 	var data UserData
 
 	// scraping data mahasiswas
-	s.c.OnHTML("*", func(h *colly.HTMLElement) {
-		data, onScrapeErr = ScrapeDataUser(bytes.NewReader(h.Response.Body))
+	c.OnResponse(func(r *colly.Response) {
+		data, errOnResponse = ScrapeDataUser(bytes.NewReader(r.Body))
 	})
-	err := s.c.Visit(siamUrl)
+	err := c.Visit(urlSiam)
+	if err := s.checkLoginStatus(); err != nil{ return err }
 	if err != nil { return err }
-	if onScrapeErr != nil { return onScrapeErr }
+	if errOnResponse != nil { return errOnResponse }
 	s.Data = data
 	return nil
 }
 
 
 func (s *User) GetKrs() (Krs, error){
-	if !s.LoginStatus {
-		return Krs{}, ErrNotLoggedIn
-	}
-
+	c := s.cloneCollector()
+		
 	var krs Krs
-	var errOnHtml error
+	var errOnResponse error
 
-	s.c.OnHTML("*", func(h *colly.HTMLElement) {
-		krs, errOnHtml = ScrapeKrs(bytes.NewReader(h.Response.Body))
+	c.OnResponse(func(r *colly.Response) {
+		if r.FileName() == pathKrs {
+			krs, errOnResponse = ScrapeKrs(bytes.NewReader(r.Body))
+		}
 	})
 	
-	err := s.c.Visit(krsUrl)
+	err := c.Visit(urlKrs)
+	if err := s.checkLoginStatus(); err != nil{ return krs, err }
 	if err != nil {
 		return krs, err
 	}
-	if errOnHtml != nil {
-		return krs, errOnHtml
+	if errOnResponse != nil {
+		return krs, errOnResponse
 	}
-
+	
 	return krs, nil
 }
 
@@ -146,6 +147,31 @@ func (s *User) Logout() error {
 	if !s.LoginStatus {
 		return ErrNotLoggedIn
 	}
-	s.c.Visit(logoutUrl)
+	s.C.Visit(urlLogout)
+	s.LoginStatus = false
+	return nil
+}
+
+// use this to clone collector for every web scraping
+func (s *User) cloneCollector() *colly.Collector{
+	cloned := s.C.Clone()
+
+	// insert global callbacks here :
+	
+	// user auth callback
+	cloned.OnResponse(func(r *colly.Response) {
+		if r.Request.URL.String() == urlSiam + pathLogin {
+			s.LoginStatus = false
+		}
+	})
+
+	// end of callbacks ---
+	return cloned
+}
+
+func (s *User) checkLoginStatus() error{
+	if !s.LoginStatus{
+		return ErrNotLoggedIn
+	}
 	return nil
 }
