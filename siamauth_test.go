@@ -2,6 +2,7 @@ package siamauth
 
 import (
 	"log"
+	"net/url"
 	"os"
 	"testing"
 
@@ -79,6 +80,9 @@ func TestGetData(t *testing.T) {
 		assert.NotZero(t, user.Data.Jurusan)
 		assert.NotZero(t, user.Data.Seleksi)
 		assert.NotZero(t, user.Data.NomorUjian)
+
+		_, photoUrlErr := url.Parse(user.Data.FotoProfil)
+		assert.NoError(t, photoUrlErr)
 	})
 
 	t.Run("TestGetData fail for not logged in", func(t *testing.T) {

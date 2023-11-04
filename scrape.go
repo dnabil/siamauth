@@ -1,7 +1,6 @@
 package siamauth
 
 import (
-	"fmt"
 	"io"
 	"regexp"
 	"strconv"
@@ -135,6 +134,13 @@ func ScrapeDataUser(r io.Reader) (UserData, error) {
 		}
 	})
 
+	// get the photo url (inline css)
+	divPhoto := doc.Find(".photo-id")
+	divPhotoStyle, _ := divPhoto.First().Attr("style")
+	startIndex := strings.Index(divPhotoStyle, "background: url(") + len("background: url(")
+	endIndex := strings.Index(divPhotoStyle, ")")
+	photoUrl := divPhotoStyle[startIndex:endIndex]
+
 	userData := UserData{}
 
 	userData.NIM = trimSpace(result[0])
@@ -147,7 +153,7 @@ func ScrapeDataUser(r io.Reader) (UserData, error) {
 	userData.ProgramStudi = trimSpace(result[4][13:])
 	userData.Seleksi = trimSpace(result[5][7:])
 	userData.NomorUjian = trimSpace(result[6][11:])
-	userData.FotoProfil = fmt.Sprintf("https://siakad.ub.ac.id/dirfoto/foto/foto_20%s/%s.jpg", userData.NIM[0:2], userData.NIM)
+	userData.FotoProfil = photoUrl
 
 	return userData, nil
 }

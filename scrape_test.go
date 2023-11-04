@@ -1,6 +1,7 @@
 package siamauth
 
 import (
+	"net/url"
 	"os"
 	"strings"
 	"testing"
@@ -56,6 +57,9 @@ func TestScrapeDataUser(t *testing.T) {
 	assert.Equal(t, "Teknologi Informasi", data.Jurusan)
 	assert.Equal(t, "Seleksi Bersama Masuk Perguruan Tinggi Negeri Brawijaya - Malang", data.Seleksi)
 	assert.Equal(t, "111111111111", data.NomorUjian)
+	
+	_, photoUrlErr := url.Parse(data.FotoProfil)
+	assert.NoError(t, photoUrlErr)
 }
 
 func TestScrapeLoginError(t *testing.T) {
